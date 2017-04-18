@@ -1,0 +1,24 @@
+DATA SEGMENT
+    N1 Db "positive$"
+    N2 Db "negative$"                  
+DATA ENDS    
+CODE SEGMENT
+    ASSUME CS:CODE, DS:DATA
+    START:
+    MOV AX,DATA
+    MOV DS,AX
+                   
+    MOV AX,-1234H
+    ROL AX,1
+    JC NEGATIVE
+    MOV AH,09H
+    MOV DX,OFFSET N1
+    INT 21H
+    JMP EXIT
+    NEGATIVE:
+        MOV AH,09H
+        MOV DX,OFFSET N2
+        INT 21H
+    EXIT:
+    CODE ENDS    
+END START
